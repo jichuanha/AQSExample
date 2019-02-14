@@ -1,4 +1,4 @@
-package com.aqs;
+package com.chuan.current.aqs;
 
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;

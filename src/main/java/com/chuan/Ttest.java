@@ -1,4 +1,4 @@
-package com.aqs;
+package com.chuan;
 
 /**
  * author:jc
@@ -11,8 +11,10 @@ public class Ttest {
     private volatile static Ttest ttest;
 
     public static Ttest getTest() {
+        //先判断是否为空,如果不为空,就不用进入锁,提升性能
         if(ttest == null) {
             synchronized (Ttest.class){
+                //再次判断是否为空,是为了防止多个线程同时进入,当有个一线程进入锁后,另外一个线程也已经进入第一个非空判断了.
                 if(ttest == null) {
                     ttest = new Ttest();
                 }

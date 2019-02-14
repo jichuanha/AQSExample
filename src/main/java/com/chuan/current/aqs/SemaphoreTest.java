@@ -1,4 +1,4 @@
-package com.aqs;
+package com.chuan.current.aqs;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
