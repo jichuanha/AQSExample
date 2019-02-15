@@ -12,8 +12,8 @@ import java.util.concurrent.*;
 public class Test {
 
 
-    public static final String PRXOY_HOST = "116.62.131.137";
-    public static final String PROXY_PORT = "1080";
+    public static final String PRXOY_HOST = "";
+    public static final String PROXY_PORT = "";
     public static final String TEST_ADDRESS = "http://www.google.com.tw";
     private static final ExecutorService EXECUTOR = Executors.newSingleThreadExecutor();
 
