@@ -40,6 +40,8 @@ public class Mail {
     private String socksProxyPort = "1080";
     private String subject;
     private Boolean socksProxySet = false;
+    private String socketUserName = "yyzws";
+    private String socketPassword = "DA23456546";
     private boolean sslOnConnect;
     private boolean isHtml = true;
     private boolean debug = false;
@@ -145,6 +147,13 @@ public class Mail {
             properties.setProperty("proxySet", "true");
             properties.setProperty("socksProxyHost", socksProxyHost);
             properties.setProperty("socksProxyPort", socksProxyPort);
+            //这个地方设置socket代理的账号密码
+            java.net.Authenticator.setDefault(new java.net.Authenticator() {
+                @Override
+                protected java.net.PasswordAuthentication getPasswordAuthentication() {
+                    return new java.net.PasswordAuthentication(socketUserName, socketPassword.toCharArray());
+                }
+            });
         }
         //ssl
         if(sslOnConnect) {
@@ -180,6 +189,7 @@ public class Mail {
             this.password = password;
         }
 
+        @Override
         protected PasswordAuthentication getPasswordAuthentication() {
             return new PasswordAuthentication(this.user, this.password);
         }
