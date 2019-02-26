@@ -21,11 +21,11 @@ public class SendMailUtil {
 
 	private static final Logger log = LoggerFactory.getLogger(SendMailUtil.class);
 
-	private static final String from = "jichuandada@163.com";
+	private static final String from = "";
 	private static final String fromName = "CRM";
 	private static final String charSet = "utf-8";
-	private static final String username = "jichuandada@163.com";
-	private static final String password = "zhu18848977541";
+	private static final String username = "";
+	private static final String password = "";
 	private static Pattern NUMBER_PATTERN = Pattern.compile("\\w+@(\\w+)(\\.\\w+){1,2}");
 	private static Map<String, String> hostMap = new HashMap<String, String>();
 	static {
@@ -163,8 +163,8 @@ public class SendMailUtil {
 
 		properties.setProperty("proxySet","true");
 		//116.62.131.137  172.16.75.78
-		properties.setProperty("socksProxyHost", "172.16.75.78");
-		properties.setProperty("socksProxyPort", "1080");
+		properties.setProperty("socksProxyHost", "");
+		properties.setProperty("socksProxyPort", "");
 
 		properties.setProperty("mail.smtp.port", "465");
 		properties.setProperty("mail.smtp.socketFactory.port", "465");

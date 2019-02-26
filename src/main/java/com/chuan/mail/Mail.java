@@ -36,12 +36,12 @@ public class Mail {
     private String mailPassword;
     private String senderAddress;
     private String senderName;
-    private String socksProxyHost = "116.62.131.137";
-    private String socksProxyPort = "1080";
+    private String socksProxyHost = "";
+    private String socksProxyPort = "";
     private String subject;
     private Boolean socksProxySet = false;
-    private String socketUserName = "yyzws";
-    private String socketPassword = "DA23456546";
+    private String socketUserName = "";
+    private String socketPassword = "";
     private boolean sslOnConnect;
     private boolean isHtml = true;
     private boolean debug = false;
@@ -331,14 +331,14 @@ public class Mail {
             //开启代理
             mail.setSocksProxySet(true);
             mail.setSslOnConnect(true);
-            mail.setMailUserName("jichuandada@163.com");
-            mail.setMailPassword("zhu18848977541");
-            mail.setSenderAddress("jichuandada@163.com");
+            mail.setMailUserName("");
+            mail.setMailPassword("");
+            mail.setSenderAddress("");
             mail.setSubject("标题");
             mail.setSenderName("串串");
             mail.setAuth(true);
             mail.setDebug(true);
-            mail.sendEmail("zhujichuan@coseast.com", sb.toString());
+            mail.sendEmail("1361047223@qq.com", sb.toString());
             System.out.println("发送成功！");
         } catch (Exception ex) {
             ex.printStackTrace();
