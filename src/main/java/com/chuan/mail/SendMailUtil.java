@@ -1,18 +1,25 @@
 
 package com.chuan.mail;
-
+import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.HtmlEmail;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import javax.mail.Session;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * 发送邮件,避开25端口(阿里云25端口被禁用)
+ * 发送电子邮件
  */
 public class SendMailUtil {
+
+
+	private static final Logger log = LoggerFactory.getLogger(SendMailUtil.class);
 
 	private static final String from = "jichuandada@163.com";
 	private static final String fromName = "CRM";
@@ -113,10 +120,10 @@ public class SendMailUtil {
 	 */
 	public static void sendCommonMail(String toMailAddr, String subject,
                                       String message) {
-		// MultiPartEmail email = new MultiPartEmail(); 如果要发送带附件的邮件，需使用这个类
 		HtmlEmail hemail = new HtmlEmail();
 		try {
 			hemail.setSSLOnConnect(true);
+			//hemail.setSslSmtpPort("587");
 			hemail.setSmtpPort(587);
 			hemail.setHostName(getHost(from));
 			//hemail.setSmtpPort(getSmtpPort(from));
@@ -126,6 +133,12 @@ public class SendMailUtil {
 			hemail.setAuthentication(username, password);
 			hemail.setSubject(subject);
 			hemail.setMsg(message);
+			hemail.setDebug(true);
+
+			Session mailSession = getMailSession();
+
+			hemail.setMailSession(mailSession);
+
 			hemail.send();
 			System.out.println("email send true!");
 		} catch (Exception e) {
@@ -134,6 +147,40 @@ public class SendMailUtil {
 		}
 
 	}
+
+
+	private static Session getMailSession() throws Exception {
+
+		//这个获取properties的方法有问题,导致代理添加不上.所以用了下面这个方法
+		//Properties properties = new Properties(System.getProperties());
+		Properties properties = System.getProperties();
+
+		properties.setProperty("mail.smtp.port", "25");
+		properties.setProperty("mail.smtp.host", "smtp.163.com");
+		properties.setProperty("mail.debug", "true");
+
+		properties.setProperty("mail.smtp.auth", "true");
+
+		properties.setProperty("proxySet","true");
+		//116.62.131.137  172.16.75.78
+		properties.setProperty("socksProxyHost", "172.16.75.78");
+		properties.setProperty("socksProxyPort", "1080");
+
+		properties.setProperty("mail.smtp.port", "465");
+		properties.setProperty("mail.smtp.socketFactory.port", "465");
+		properties.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		properties.setProperty("mail.smtp.socketFactory.fallback", "false");
+		properties.setProperty("mail.smtp.ssl.checkserveridentity", "true");
+
+
+		properties.setProperty("mail.smtp.timeout", Integer.toString(60000));
+		properties.setProperty("mail.smtp.connectiontimeout", Integer.toString(60000));
+
+
+		return Session.getInstance(properties, new DefaultAuthenticator(username, password));
+	}
+
+
 //	public static String getHtmlText(String templatePath,
 //			Map<String, Object> map) {
 //		Template template = null;
@@ -261,9 +308,9 @@ public class SendMailUtil {
 		// }
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("subject", "测试标题");
-		map.put("content", "测试 内容");
+		map.put("content", " 本地 测试 内容");
 		String templatePath = "mailtemplate/test.ftl";
-		sendCommonMail("zhujichuan@coseast.com", "sendemail test!",  map.toString());
+		sendCommonMail("1361047223@qq.com", "sendemail test!",  map.toString());
 
 		// System.out.println(getFileName("mailtemplate/test.ftl"));
 	}
